@@ -32,6 +32,44 @@ function App() {
       fetchTarefas();
     } , []
  )
+
+const adicionarTarefa = async(texto) =>{
+  try {
+    const response = await fetch("http://localhost:3000/tarefas",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ texto }),
+    });
+    if (!response.ok) {
+      throw new Error("Falha ao adicionar tarefa na API.");
+    }
+    
+    const novaTarefaAPI = await response.json();
+
+    const novaTarefaLocal = {
+      id: novaTarefaAPI.id,
+      texto: novaTarefaAPI.texto,
+      concluida: novaTarefaAPI.concluida,
+    };
+
+    setTarefas((prev)  =>[...prev, novaTarefaLocal]);
+
+  }catch (error) {
+    console.error("Error ao adicionar tarefas:", error);
+  }
+};
+
+const removerTarefa = (id) => {
+  try {
+    const response = await fetch('http://localhost:3000/tarefas/$(id)',{
+      method: 'DELETE',
+    });
+
+    if(response.status ===)
+  }
+}
   
 
   
